@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+    db:
+        build:
+            context: ./Docker
+            dockerfile: Dockerfile
+        container_name: postgresSQL
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_DB=spring_test
+            - POSTGRES_USER=user
+            - POSTGRES_PASSWORD=password
+        volumes:
+            - db:/var/lib/postgresql/data
+        networks:
+            - postgres-network
+
+networks:
+    postgres-network:
+        driver: bridge
+
+volumes:
+    db:
